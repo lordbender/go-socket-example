@@ -28,4 +28,10 @@ func main() {
 	services.MergeSortParallel(b, 50)
 	parallelMergeSortElapsed := time.Since(parallelMergeSortStart)
 	log.Printf("Parallel Merge Sort took %s", parallelMergeSortElapsed)
+
+	c := core.GetMatrix(size, size, true)
+	squareMatrixStart := time.Now()
+	services.SquareMatrix(c)
+	squareMatrixEnd := time.Since(squareMatrixStart)
+	log.Printf("Sequential Square Matrix took %s", squareMatrixEnd)
 }

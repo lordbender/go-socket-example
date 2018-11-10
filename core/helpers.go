@@ -18,3 +18,21 @@ func GetArray(size int) []int {
 
 	return a
 }
+
+// GetMatrix creates a 2d matrix.
+func GetMatrix(dx, dy int, fillIt bool) [][]int {
+	rand.Seed(time.Now().UTC().UnixNano())
+	a := make([][]int, dy)
+	for i := range a {
+		a[i] = make([]int, dx)
+	}
+
+	if fillIt {
+		for i := 0; i < dy; i++ {
+			for j := 0; j < dx; j++ {
+				a[i][j] = rand.Int()
+			}
+		}
+	}
+	return a
+}

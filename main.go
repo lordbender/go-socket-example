@@ -15,4 +15,9 @@ func main() {
 	services.MergeSort(a)
 	elapsed := time.Since(start)
 	log.Printf("Sequential Merge Sort took %s", elapsed)
+
+	parallelMergeSortStart := time.Now()
+	services.MergeSortParallel(a, 0)
+	parallelMergeSortElapsed := time.Since(parallelMergeSortStart)
+	log.Printf("Parallel Merge Sort took %s", parallelMergeSortElapsed)
 }

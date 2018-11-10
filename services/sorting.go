@@ -1,5 +1,7 @@
 package services
 
+import "sync"
+
 // merges left and right slice into newly created slice
 func merge(left, right []int) []int {
 
@@ -32,4 +34,46 @@ func MergeSort(slice []int) []int {
 	}
 	mid := (len(slice)) / 2
 	return merge(MergeSort(slice[:mid]), MergeSort(slice[mid:]))
+}
+
+// MergeSortParallel algorithm with deferment.
+// Reference https://github.com/duffleit/golang-parallel-mergesort/blob/master/mergesort/mergesort.go
+func MergeSortParallel(list []int, threshold int) []int {
+
+	useThreshold := !(threshold < 0)
+
+	size := len(list)
+	middle := size / 2
+
+	if size <= 1 {
+		return list
+	}
+
+	var left, right []int
+
+	sortInNewRoutine := size > threshold && useThreshold
+
+	if !sortInNewRoutine {
+		left = MergeSortParallel(list[:middle], threshold)
+		right = MergeSortParallel(list[middle:], threshold)
+	} else {
+		var wg sync.WaitGroup
+		wg.Add(2)
+
+		go func() {
+			defer func() { wg.Done() }()
+			left = MergeSortParallel(list[:middle], threshold)
+
+		}()
+
+		go func() {
+			defer func() { wg.Done() }()
+			right = MergeSortParallel(list[middle:], threshold)
+		}()
+
+		wg.Wait()
+	}
+
+	return merge(left, right)
+
 }

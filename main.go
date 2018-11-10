@@ -1,14 +1,18 @@
 package main
 
-import "oop/core"
-import "oop/services"
+import (
+	"log"
+	"oop/core"
+	"oop/services"
+	"time"
+)
 
 // Citation: https://systembash.com/a-simple-go-tcp-server-and-tcp-client/
 func main() {
+	a := core.GetArray(100000000)
 
-	a := core.GetArray(120)
-	b := core.GetArray(1000000)
-
+	start := time.Now()
 	services.MergeSort(a)
-	services.MergeSort(b)
+	elapsed := time.Since(start)
+	log.Printf("Sequential Merge Sort took %s", elapsed)
 }

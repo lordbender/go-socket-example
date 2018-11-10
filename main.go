@@ -4,20 +4,28 @@ import (
 	"log"
 	"oop/core"
 	"oop/services"
+	"os"
+	"strconv"
 	"time"
 )
 
 // Citation: https://systembash.com/a-simple-go-tcp-server-and-tcp-client/
 func main() {
-	a := core.GetArray(100000000)
+	size, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		println("Invalid Command Line Arguments, expected int representing test size.")
+		return
+	}
 
+	a := core.GetArray(size)
 	start := time.Now()
 	services.MergeSort(a)
 	elapsed := time.Since(start)
 	log.Printf("Sequential Merge Sort took %s", elapsed)
 
+	b := core.GetArray(size)
 	parallelMergeSortStart := time.Now()
-	services.MergeSortParallel(a, 0)
+	services.MergeSortParallel(b, 50)
 	parallelMergeSortElapsed := time.Since(parallelMergeSortStart)
 	log.Printf("Parallel Merge Sort took %s", parallelMergeSortElapsed)
 }

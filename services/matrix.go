@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"oop/core"
 	"sync"
 )
@@ -24,6 +23,11 @@ func SquareMatrix(a [][]int) [][]int {
 	return c
 }
 
+type rowHelper struct {
+	row      []int
+	position int
+}
+
 // SquareMatrixParallel takes a matrix and returns
 // a matrix of the same size, but with every
 // index squared.
@@ -33,29 +37,29 @@ func SquareMatrixParallel(a [][]int) [][]int {
 	size := len(a)
 	c := core.GetMatrix(size, size, false)
 
-	respond := make(chan []int, size)
+	respond := make(chan rowHelper, size)
 	var wg sync.WaitGroup
 	wg.Add(size)
 
 	for i := 0; i < size; i++ {
-		go squareIt(respond, &wg, a[i])
+		go squareIt(respond, &wg, rowHelper{row: a[i], position: i})
 	}
 
 	wg.Wait()
 	close(respond)
 
 	for queryResp := range respond {
-		fmt.Printf("Got Response:\t %s\n", queryResp)
+		c[queryResp.position] = queryResp.row
 	}
 	return c
 }
 
-func squareIt(respond chan<- []int, wg *sync.WaitGroup, a []int) {
+func squareIt(respond chan<- rowHelper, wg *sync.WaitGroup, a rowHelper) {
 	defer wg.Done()
-	size := len(a)
+	size := len(a.row)
 	c := make([]int, size)
 	for j := 0; j < size; j++ {
-		c[j] = a[j] ^ 2
+		c[j] = a.row[j] ^ 2
 	}
-	respond <- c
+	respond <- rowHelper{row: c, position: a.position}
 }

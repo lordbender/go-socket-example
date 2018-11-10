@@ -1,13 +1,14 @@
 package main
 
-import "fmt"
 import "oop/core"
+import "oop/services"
 
 // Citation: https://systembash.com/a-simple-go-tcp-server-and-tcp-client/
 func main() {
 
-	a := core.getArray()
-	b := core.getArray()
+	a := core.GetArray(120)
+	b := core.GetArray(1000000)
 
-	fmt.Println("Launching server...")
+	services.MergeSort(a)
+	services.MergeSort(b)
 }

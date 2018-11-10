@@ -1,4 +1,4 @@
-package rocks
+package distributed
 
 /* Al useful imports */
 import (

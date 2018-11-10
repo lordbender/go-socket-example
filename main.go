@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 	"oop/core"
-	"oop/rocks"
+	"oop/distributed"
 	"oop/services"
 	"time"
 )
@@ -19,10 +19,11 @@ func main() {
 	all := flag.Bool("all", false, "If true, all reports will run")
 	mergeSortReports := flag.Bool("nlogn", false, "If true, all merge sort actions are triggered, report run.")
 	squaredReports := flag.Bool("nsquared", false, "If true, all merge sort actions are triggered, report run.")
+	rocks := flag.Bool("rocks", false, "If true, run distributed memory programs.")
 
 	flag.Parse()
 
-	if *all || *mergeSortReports {
+	if (*all || *mergeSortReports) && !*rocks {
 		a := core.GetArray(*size)
 		start := time.Now()
 		services.MergeSort(a)
@@ -30,7 +31,7 @@ func main() {
 		report("Sequential Merge Sort", elapsed.String(), *size)
 	}
 
-	if *all || *mergeSortReports {
+	if (*all || *mergeSortReports) && !*rocks {
 		b := core.GetArray(*size)
 		parallelMergeSortStart := time.Now()
 		services.MergeSortParallel(b, 50)
@@ -38,7 +39,7 @@ func main() {
 		report("Parallel Merge Sort", parallelMergeSortElapsed.String(), *size)
 	}
 
-	if *all || *squaredReports {
+	if (*all || *squaredReports) && !*rocks {
 		c := core.GetMatrix(*size, *size, true)
 		squareMatrixStart := time.Now()
 		services.SquareMatrix(c)
@@ -46,7 +47,7 @@ func main() {
 		report("Sequential Square Matrix", squareMatrixEnd.String(), *size)
 	}
 
-	if *all || *squaredReports {
+	if (*all || *squaredReports) && !*rocks {
 		d := core.GetMatrix(*size, *size, true)
 		squareMatrixParStart := time.Now()
 		services.SquareMatrixParallel(d)
@@ -54,9 +55,9 @@ func main() {
 		report("Parallel Square Matrix", squareMatrixParEnd.String(), *size)
 	}
 
-	if *all || *mergeSortReports {
+	if (*all || *mergeSortReports) && *rocks {
 		rocksMergeSortStart := time.Now()
-		rocks.Greet()
+		distributed.Greet()
 		rocksMergeSortElapsed := time.Since(rocksMergeSortStart)
 		report("Distributed Merge Sort", rocksMergeSortElapsed.String(), *size)
 	}

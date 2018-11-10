@@ -34,4 +34,10 @@ func main() {
 	services.SquareMatrix(c)
 	squareMatrixEnd := time.Since(squareMatrixStart)
 	log.Printf("Sequential Square Matrix took %s", squareMatrixEnd)
+
+	d := core.GetMatrix(size, size, true)
+	squareMatrixParStart := time.Now()
+	services.SquareMatrixParallel(d)
+	squareMatrixParEnd := time.Since(squareMatrixParStart)
+	log.Printf("Parallel Square Matrix took %s", squareMatrixParEnd)
 }

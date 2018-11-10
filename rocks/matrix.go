@@ -38,10 +38,9 @@ func (req AddToClusterMessage) String() string {
 
 // Greet the entry point for our System */
 func Greet() {
-	/* Parse the provided parameters on command line */
-	makeMasterOnError := flag.Bool("makeMasterOnError", false, "make this node master if unable to connect to the cluster ip provided.")
-	clusterip := flag.String("clusterip", "127.0.0.1:8001", "ip address of any node to connnect")
-	myport := flag.String("myport", "8001", "ip address to run this node on. default is 8001.")
+	makeMasterOnError := false
+	clusterip := "127.0.0.1:8001"
+	myport := "8001"
 	flag.Parse()
 
 	/* Generate id for myself */
@@ -49,8 +48,8 @@ func Greet() {
 	myid := rand.Intn(99999999)
 
 	myIp, _ := net.InterfaceAddrs()
-	me := NodeInfo{NodeId: myid, NodeIpAddr: myIp[0].String(), Port: *myport}
-	dest := NodeInfo{NodeId: -1, NodeIpAddr: strings.Split(*clusterip, ":")[0], Port: strings.Split(*clusterip, ":")[1]}
+	me := NodeInfo{NodeId: myid, NodeIpAddr: myIp[0].String(), Port: myport}
+	dest := NodeInfo{NodeId: -1, NodeIpAddr: strings.Split(clusterip, ":")[0], Port: strings.Split(clusterip, ":")[1]}
 	fmt.Println("My details:", me.String())
 
 	/* Try to connect to the cluster, and send request to cluster if able to connect */
@@ -60,8 +59,8 @@ func Greet() {
 	 * Listen for other incoming requests form other nodes to join cluster
 	 * Note: We are not doing anything fancy right now to make this node as master. Not yet!
 	 */
-	if ableToConnect || (!ableToConnect && *makeMasterOnError) {
-		if *makeMasterOnError {
+	if ableToConnect || (!ableToConnect && makeMasterOnError) {
+		if makeMasterOnError {
 			fmt.Println("Will start this node as master.")
 		}
 		listenOnPort(me)

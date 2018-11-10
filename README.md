@@ -6,8 +6,15 @@ go build main.go
 
 # Run
 
-go run main.go 10000
+go run main.go --size=10000 --all
+go run main.go --size=10000 --nsquared
+go run main.go --size=10000 --nsquared
 
+## Flags
+    --size
+    --all
+    --nlogn
+    --nsquared
 # Test
 
 \$ ./test.sh

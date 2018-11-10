@@ -1,1 +1,1 @@
-go run main.go 10000
+go run main.go size=10000

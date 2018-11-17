@@ -56,9 +56,17 @@ func main() {
 		report("Parallel Square Matrix", squareMatrixParEnd.String(), *size)
 	}
 
+	if (*all || *squaredReports) && *rocks {
+		m1 := core.GetMatrix(*size, *size, true)
+		rocksMatrixSquareStart := time.Now()
+		distributed.SquareMatrix(m1, *hostsfile)
+		rocksMatrixSquareElapsed := time.Since(rocksMatrixSquareStart)
+		report("Distributed Matrix Square", rocksMatrixSquareElapsed.String(), *size)
+	}
+
 	if (*all || *mergeSortReports) && *rocks {
 		rocksMergeSortStart := time.Now()
-		distributed.Greet(*hostsfile)
+		// distributed.MergeSort(*hostsfile)
 		rocksMergeSortElapsed := time.Since(rocksMergeSortStart)
 		report("Distributed Merge Sort", rocksMergeSortElapsed.String(), *size)
 	}

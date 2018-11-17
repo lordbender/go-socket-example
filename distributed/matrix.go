@@ -34,7 +34,13 @@ type rowHelper struct {
 // SquareMatrix will return a copy of a matrix, with every index's value squared.
 func SquareMatrix(a [][]int, hostsfile bool) {
 	size := len(a[0])
-	maxNbConcurrentGoroutines := 30
+	maxNbConcurrentGoroutines := func() int {
+		if hostsfile {
+			return 12
+		} else {
+			return 1
+		}
+	}()
 	concurrentGoroutines := make(chan struct{}, maxNbConcurrentGoroutines)
 
 	// Fill the dummy channel with maxNbConcurrentGoroutines empty struct.
@@ -51,15 +57,6 @@ func SquareMatrix(a [][]int, hostsfile bool) {
 
 	// burstLimit := 50
 	respond := make(chan rowHelper, size)
-
-	// var wg sync.WaitGroup
-	// wg.Add(func() int {
-	// 	if size < 30 {
-	// 		return size
-	// 	} else {
-	// 		return 30
-	// 	}
-	// }())
 
 	go func() {
 		for i := 0; i < size; i++ {

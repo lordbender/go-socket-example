@@ -9,6 +9,24 @@ import (
 	"sync"
 )
 
+const root string = "127.0.0.1"
+
+func hosts() []string {
+	return []string{
+		"compute-0-2",
+		"compute-0-3",
+		"compute-0-4",
+		"compute-0-5",
+		"compute-0-6",
+		"compute-0-7",
+		"compute-0-8",
+		"compute-0-9",
+		"compute-0-10",
+		"compute-0-11",
+		"compute-0-12",
+	}
+}
+
 type rowHelper struct {
 	row      []int
 	position int
@@ -20,7 +38,10 @@ func SquareMatrix(a [][]int, hostsfile bool) {
 
 	// Here is where the result will go
 	result := make([][]int, size)
-	respond := make(chan rowHelper, size)
+
+	burstLimit := 50
+	respond := make(chan rowHelper, burstLimit)
+
 	var wg sync.WaitGroup
 	wg.Add(size)
 

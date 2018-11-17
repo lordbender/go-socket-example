@@ -17,6 +17,7 @@ func report(algorithm, elapsed string, size int) {
 func main() {
 	size := flag.Int("size", 1000, "Size of the test set.")
 	all := flag.Bool("all", false, "If true, all reports will run")
+	hostsfile := flag.Bool("hostsfile", false, "If true, all hosts will be used, else only root will be used")
 	mergeSortReports := flag.Bool("nlogn", false, "If true, all merge sort actions are triggered, report run.")
 	squaredReports := flag.Bool("nsquared", false, "If true, all merge sort actions are triggered, report run.")
 	rocks := flag.Bool("rocks", false, "If true, run distributed memory programs.")
@@ -57,7 +58,7 @@ func main() {
 
 	if (*all || *mergeSortReports) && *rocks {
 		rocksMergeSortStart := time.Now()
-		distributed.Greet()
+		distributed.Greet(*hostsfile)
 		rocksMergeSortElapsed := time.Since(rocksMergeSortStart)
 		report("Distributed Merge Sort", rocksMergeSortElapsed.String(), *size)
 	}

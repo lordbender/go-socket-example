@@ -37,7 +37,7 @@ func (req AddToClusterMessage) String() string {
 }
 
 // Greet the entry point for our System */
-func Greet() {
+func Greet(hostsfile bool) {
 	makeMasterOnError := false
 	clusterip := "127.0.0.1:8001"
 	myport := "8001"

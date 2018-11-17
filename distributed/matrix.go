@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math"
 	"net/http"
 )
 
@@ -12,6 +13,8 @@ const root string = "127.0.0.1"
 
 func hosts() []string {
 	return []string{
+		"compute-0-0",
+		"compute-0-1",
 		"compute-0-2",
 		"compute-0-3",
 		"compute-0-4",
@@ -24,6 +27,19 @@ func hosts() []string {
 		"compute-0-11",
 		"compute-0-12",
 	}
+}
+
+func getNextHost(i int) string {
+	hosts := hosts()
+	size := len(hosts)
+	var iPrime int = 0
+
+	if i < size {
+		iPrime = i
+	} else {
+		iPrime = int(math.Mod(float64(i), 13))
+	}
+	return hosts[iPrime]
 }
 
 type rowHelper struct {
@@ -72,7 +88,13 @@ func SquareMatrix(a [][]int, hostsfile bool) {
 	for i := 0; i < size; i++ {
 		<-concurrentGoroutines
 		go func(i int) {
-			squareIt(respond, rowHelper{row: a[i], position: i})
+			var url string = ""
+			if !hostsfile {
+				url = "http://" + root + ":8080/api/v1/vector-square"
+			} else {
+				url = getNextHost(i)
+			}
+			squareIt(respond, rowHelper{row: a[i], position: i}, url)
 			done <- true
 		}(i)
 	}
@@ -86,7 +108,7 @@ func SquareMatrix(a [][]int, hostsfile bool) {
 	}
 }
 
-func squareIt(respond chan<- rowHelper, a rowHelper) {
+func squareIt(respond chan<- rowHelper, a rowHelper, url string) {
 	size := len(a.row)
 	c := make([]int, size)
 
@@ -94,7 +116,7 @@ func squareIt(respond chan<- rowHelper, a rowHelper) {
 		jsonData := VectorModel{a.position, a.row}
 		jsonValue, _ := json.Marshal(jsonData)
 
-		response, err := http.Post("http://localhost:8080/api/v1/vector-square", "application/json", bytes.NewBuffer(jsonValue))
+		response, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
 		if err != nil {
 			fmt.Printf("The HTTP request failed with error %s\n", err)
 		} else {

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"sync"
 )
 
 const root string = "127.0.0.1"
@@ -35,30 +34,62 @@ type rowHelper struct {
 // SquareMatrix will return a copy of a matrix, with every index's value squared.
 func SquareMatrix(a [][]int, hostsfile bool) {
 	size := len(a[0])
+	maxNbConcurrentGoroutines := 30
+	concurrentGoroutines := make(chan struct{}, maxNbConcurrentGoroutines)
+
+	// Fill the dummy channel with maxNbConcurrentGoroutines empty struct.
+	for i := 0; i < maxNbConcurrentGoroutines; i++ {
+		concurrentGoroutines <- struct{}{}
+	}
+
+	// Semaphores
+	done := make(chan bool)
+	waitForAllJobs := make(chan bool)
 
 	// Here is where the result will go
 	result := make([][]int, size)
 
-	burstLimit := 50
-	respond := make(chan rowHelper, burstLimit)
+	// burstLimit := 50
+	respond := make(chan rowHelper, size)
 
-	var wg sync.WaitGroup
-	wg.Add(size)
+	// var wg sync.WaitGroup
+	// wg.Add(func() int {
+	// 	if size < 30 {
+	// 		return size
+	// 	} else {
+	// 		return 30
+	// 	}
+	// }())
+
+	go func() {
+		for i := 0; i < size; i++ {
+			<-done
+			// Say that another goroutine can now start.
+			concurrentGoroutines <- struct{}{}
+		}
+		// We have collected all the jobs, the program
+		// can now terminate
+		waitForAllJobs <- true
+	}()
 
 	for i := 0; i < size; i++ {
-		go squareIt(respond, &wg, rowHelper{row: a[i], position: i})
+		<-concurrentGoroutines
+		go func(i int) {
+			squareIt(respond, rowHelper{row: a[i], position: i})
+			done <- true
+		}(i)
 	}
 
-	wg.Wait()
+	// Wait for all jobs to finish
+	<-waitForAllJobs
+
 	close(respond)
 	for queryResp := range respond {
 		result[queryResp.position] = queryResp.row
 	}
-	fmt.Print(result)
 }
 
-func squareIt(respond chan<- rowHelper, wg *sync.WaitGroup, a rowHelper) {
-	defer wg.Done()
+func squareIt(respond chan<- rowHelper, a rowHelper) {
 	size := len(a.row)
 	c := make([]int, size)
 

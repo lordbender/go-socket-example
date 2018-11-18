@@ -8,3 +8,11 @@ $ go run main.go 20000
 2018/11/10 14:47:44 Parallel Square Matrix took 852.721ms
 
 # Socket Operation (Distributed Memory)
+
+// start the server on all clusters
+
+# For Each Cluster
+lsof -i -P -n | grep LISTEN
+rocks run host compute-0-10 "~/go/src/oop/server"
+rocks iterate host "~/go/src/oop/server &"
+curl http://localhost:8080/api/v1/running

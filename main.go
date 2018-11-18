@@ -75,8 +75,9 @@ func main() {
 	}
 
 	if (*all || *mergeSortReports) && *rocks {
+		b := core.GetArray(*size)
 		rocksMergeSortStart := time.Now()
-		// distributed.MergeSort(*hostsfile)
+		distributed.MergeSortDistributed(b, 13, *hostsfile)
 		rocksMergeSortElapsed := time.Since(rocksMergeSortStart)
 		m := core.ReportModel{
 			rocksMergeSortElapsed,

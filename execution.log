@@ -26,3 +26,143 @@ Report for: Shared Memory, Threaded Parallel Square Matrix
 2018/11/18 11:01:22 	Complexity         : O(n^2)
 2018/11/18 11:01:22 	Duration of Run    : 158.5748ms
 2018/11/18 11:01:22 	Size of test set   : 10000
+2018/11/18 11:14:49 
+
+Report for: Linear MergeSort
+2018/11/18 11:14:49 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:14:49 	Complexity         : O(n*log(n))
+2018/11/18 11:14:49 	Duration of Run    : 4.189756ms
+2018/11/18 11:14:49 	Size of test set   : 10000
+2018/11/18 11:14:49 
+
+Report for: Shared Memory, Threaded Parallel MergeSort
+2018/11/18 11:14:49 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:14:49 	Complexity         : O(n*log(n))
+2018/11/18 11:14:49 	Duration of Run    : 19.132824ms
+2018/11/18 11:14:49 	Size of test set   : 10000
+2018/11/18 11:14:56 
+
+Report for: Sequential Square Matrix
+2018/11/18 11:14:56 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:14:56 	Complexity         : O(n^2)
+2018/11/18 11:14:56 	Duration of Run    : 783.560336ms
+2018/11/18 11:14:56 	Size of test set   : 10000
+2018/11/18 11:15:03 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 11:15:03 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:15:03 	Complexity         : O(n^2)
+2018/11/18 11:15:03 	Duration of Run    : 1.008660201s
+2018/11/18 11:15:03 	Size of test set   : 10000
+2018/11/18 11:58:02 
+
+Report for: Linear MergeSort
+2018/11/18 11:58:02 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:58:02 	Complexity         : O(n*log(n))
+2018/11/18 11:58:02 	Duration of Run    : 4.261944ms
+2018/11/18 11:58:02 	Size of test set   : 10000
+2018/11/18 11:58:02 
+
+Report for: Shared Memory, Threaded Parallel MergeSort
+2018/11/18 11:58:02 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:58:02 	Complexity         : O(n*log(n))
+2018/11/18 11:58:02 	Duration of Run    : 18.741988ms
+2018/11/18 11:58:02 	Size of test set   : 10000
+2018/11/18 11:58:47 
+
+Report for: Linear MergeSort
+2018/11/18 11:58:47 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:58:47 	Complexity         : O(n*log(n))
+2018/11/18 11:58:47 	Duration of Run    : 40.692877ms
+2018/11/18 11:58:47 	Size of test set   : 100000
+2018/11/18 11:58:47 
+
+Report for: Shared Memory, Threaded Parallel MergeSort
+2018/11/18 11:58:47 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:58:47 	Complexity         : O(n*log(n))
+2018/11/18 11:58:47 	Duration of Run    : 162.636596ms
+2018/11/18 11:58:47 	Size of test set   : 100000
+2018/11/18 11:59:15 
+
+Report for: Linear MergeSort
+2018/11/18 11:59:15 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:59:15 	Complexity         : O(n*log(n))
+2018/11/18 11:59:15 	Duration of Run    : 429.373408ms
+2018/11/18 11:59:15 	Size of test set   : 1000000
+2018/11/18 11:59:16 
+
+Report for: Shared Memory, Threaded Parallel MergeSort
+2018/11/18 11:59:16 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 11:59:16 	Complexity         : O(n*log(n))
+2018/11/18 11:59:16 	Duration of Run    : 1.760324075s
+2018/11/18 11:59:16 	Size of test set   : 1000000
+2018/11/18 12:02:19 
+
+Report for: Sequential Square Matrix
+2018/11/18 12:02:19 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:02:19 	Complexity         : O(n^2)
+2018/11/18 12:02:19 	Duration of Run    : 781.520774ms
+2018/11/18 12:02:19 	Size of test set   : 10000
+2018/11/18 12:02:26 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 12:02:26 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:02:26 	Complexity         : O(n^2)
+2018/11/18 12:02:26 	Duration of Run    : 1.050560723s
+2018/11/18 12:02:26 	Size of test set   : 10000
+2018/11/18 12:05:11 
+
+Report for: Sequential Square Matrix
+2018/11/18 12:05:11 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:05:11 	Complexity         : O(n^2)
+2018/11/18 12:05:11 	Duration of Run    : 11.94331ms
+2018/11/18 12:05:11 	Size of test set   : 1000
+2018/11/18 12:05:11 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 12:05:11 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:05:11 	Complexity         : O(n^2)
+2018/11/18 12:05:11 	Duration of Run    : 15.493764ms
+2018/11/18 12:05:11 	Size of test set   : 1000
+2018/11/18 12:06:04 
+
+Report for: Sequential Square Matrix
+2018/11/18 12:06:04 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:06:04 	Complexity         : O(n^2)
+2018/11/18 12:06:04 	Duration of Run    : 343.326us
+2018/11/18 12:06:04 	Size of test set   : 100
+2018/11/18 12:06:04 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 12:06:04 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:06:04 	Complexity         : O(n^2)
+2018/11/18 12:06:04 	Duration of Run    : 1.08799ms
+2018/11/18 12:06:04 	Size of test set   : 100
+2018/11/18 12:08:32 
+
+Report for: Sequential Square Matrix
+2018/11/18 12:08:32 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:08:32 	Complexity         : O(n^2)
+2018/11/18 12:08:32 	Duration of Run    : 3.010648463s
+2018/11/18 12:08:32 	Size of test set   : 20000
+2018/11/18 12:09:00 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 12:09:00 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:09:00 	Complexity         : O(n^2)
+2018/11/18 12:09:00 	Duration of Run    : 4.572166647s
+2018/11/18 12:09:00 	Size of test set   : 20000
+2018/11/18 12:10:56 
+
+Report for: Sequential Square Matrix
+2018/11/18 12:10:56 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:10:56 	Complexity         : O(n^2)
+2018/11/18 12:10:56 	Duration of Run    : 12.521956485s
+2018/11/18 12:10:56 	Size of test set   : 40000
+2018/11/18 12:12:42 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 12:12:42 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 12:12:42 	Complexity         : O(n^2)
+2018/11/18 12:12:42 	Duration of Run    : 14.21036863s
+2018/11/18 12:12:42 	Size of test set   : 40000

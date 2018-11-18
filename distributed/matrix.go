@@ -92,7 +92,7 @@ func SquareMatrix(a [][]int, hostsfile bool) {
 			if !hostsfile {
 				url = "http://" + root + ":8080/api/v1/vector-square"
 			} else {
-				url = getNextHost(i)
+				url = "http://" + getNextHost(i) + ":8080/api/v1/vector-square"
 			}
 			squareIt(respond, rowHelper{row: a[i], position: i}, url)
 			done <- true

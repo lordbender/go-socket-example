@@ -13,6 +13,6 @@ $ go run main.go 20000
 
 # For Each Cluster
 lsof -i -P -n | grep LISTEN
-rocks run host compute-0-10 "~/go/src/oop/server"
+rocks run host compute-0-0 "~/go/src/oop/server"
 rocks iterate host "~/go/src/oop/server &"
 curl http://localhost:8080/api/v1/running

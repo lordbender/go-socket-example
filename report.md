@@ -1,43 +1,134 @@
-# Threaded Operation (Shared Memory)
+# Analysis of O(n*log(n)) Shared Memory
 
-seanw@LAPTOP-O33V4R1R MINGW64 ~/go/src/oop (master)
-$ go run main.go 20000
-2018/11/10 14:47:22 Sequential Merge Sort took 2.9913ms
-2018/11/10 14:47:22 Parallel Merge Sort took 3.9778ms
-2018/11/10 14:47:33 Sequential Square Matrix took 1.4840293s
-2018/11/10 14:47:44 Parallel Square Matrix took 852.721ms
+# Analysis of O(n*log(n)) Distributed Memory
 
-# Socket Operation (Distributed Memory)
+# Analysis of O(n^2) Shared Memory
 
-// start the server on all clusters
+# Analysis of O(n^2) Distributed Memory
 
-# Setup and Clean-Up For Each Cluster
+# Sequential Shared Memory Runs
+#Host environment: cisatlas.ccec.unf.edu#
 
-## if a server goes down, use the correct command to get it running again
-rocks run host compute-0-0 "~/go/src/oop/server" &
-rocks run host compute-0-1 "~/go/src/oop/server" &
-rocks run host compute-0-2 "~/go/src/oop/server" &
-rocks run host compute-0-3 "~/go/src/oop/server" &
-rocks run host compute-0-4 "~/go/src/oop/server" &
-rocks run host compute-0-5 "~/go/src/oop/server" &
-rocks run host compute-0-6 "~/go/src/oop/server" &
-rocks run host compute-0-7 "~/go/src/oop/server" &
-rocks run host compute-0-8 "~/go/src/oop/server" &
-rocks run host compute-0-9 "~/go/src/oop/server" &
-rocks run host compute-0-10 "~/go/src/oop/server" &
-rocks run host compute-0-11 "~/go/src/oop/server" &
-rocks run host compute-0-12 "~/go/src/oop/server" &
+## O(n*log(n)) Runs Outcomes
 
-## if a port is in use, use lsof to find and kill it.
-lsof -i -P -n | grep LISTEN
+### 10000
+    Report for: Linear MergeSort
+            Hostname          : cisatlas.ccec.unf.edu
+            Complexity        : O(n*log(n))
+            Duration of Run   : 4.261944ms
+            Size of test set  : 10000
 
-## Test whether or not a specific compute cluster us up.
-curl http://localhost:8080/api/v1/running
-curl http://compute-0-0:8080/api/v1/running
-curl http://compute-0-[0-12]:8080/api/v1/running
+### 100000
+    Report for: Linear MergeSort
+            Hostname          : cisatlas.ccec.unf.edu
+            Complexity        : O(n*log(n))
+            Duration of Run   : 40.692877ms
+            Size of test set  : 100000
 
-## find all PORTS in use on the cluster if needed
-rocks iterate host "lsof -i -P -n | grep LISTEN"
 
-// kill them
-rocks iterate host "kill ???"
+### 1000000
+    Report for: Linear MergeSort
+            Hostname          : cisatlas.ccec.unf.edu
+            Complexity        : O(n*log(n))
+            Duration of Run   : 429.373408ms
+            Size of test set  : 1000000
+
+## O(n^2) Run Outcomes
+
+### 10,000
+Report for: Sequential Square Matrix
+        Hostname          : cisatlas.ccec.unf.edu
+        Complexity        : O(n^2)
+        Duration of Run   : 781.520774ms
+        Size of test set  : 10000
+### 20,000
+Report for: Sequential Square Matrix
+        Hostname          : cisatlas.ccec.unf.edu
+        Complexity        : O(n^2)
+        Duration of Run   : 3.010648463s
+        Size of test set  : 20000
+### 40,000
+Report for: Sequential Square Matrix
+        Hostname          : cisatlas.ccec.unf.edu
+        Complexity        : O(n^2)
+        Duration of Run   : 12.521956485s
+        Size of test set  : 40000
+
+# Goroutines with Channels, Threaded Shared Memory Runs
+#Host environment: cisatlas.ccec.unf.edu#
+
+## O(n*log(n)) Run Outcomes
+
+### 10,000
+    Report for: Shared Memory, Threaded Parallel MergeSort
+            Hostname          : cisatlas.ccec.unf.edu
+            Complexity        : O(n*log(n))
+            Duration of Run   : 18.741988ms
+            Size of test set  : 10000
+
+### 100,000
+    Report for: Shared Memory, Threaded Parallel MergeSort
+            Hostname          : cisatlas.ccec.unf.edu
+            Complexity        : O(n*log(n))
+            Duration of Run   : 162.636596ms
+            Size of test set  : 100000
+
+### 1,000,000
+    Report for: Shared Memory, Threaded Parallel MergeSort
+            Hostname          : cisatlas.ccec.unf.edu
+            Complexity        : O(n*log(n))
+            Duration of Run   : 1.760324075s
+            Size of test set  : 1000000
+
+## O(n^2) Run Outcomes
+
+### 10,000
+Report for: Shared Memory, Threaded Parallel Square Matrix
+        Hostname          : cisatlas.ccec.unf.edu
+        Complexity        : O(n^2)
+        Duration of Run   : 1.050560723s
+        Size of test set  : 10000
+
+### 20,000
+Report for: Shared Memory, Threaded Parallel Square Matrix
+        Hostname          : cisatlas.ccec.unf.edu
+        Complexity        : O(n^2)
+        Duration of Run   : 4.572166647s
+        Size of test set  : 20000
+
+### 40,000
+Report for: Shared Memory, Threaded Parallel Square Matrix
+        Hostname          : cisatlas.ccec.unf.edu
+        Complexity        : O(n^2)
+        Duration of Run   : 14.21036863s
+        Size of test set  : 40000
+
+# Client Server, HTTP Distributed Memory Runs
+#Host environment: uranus.ccec.unf.edu Beowulf Cluster compute-0-[0-12] and root -> 127.0.0.1#
+
+### 10000
+### 100000
+### 1000000
+
+## O(n^2) Run Outcomes
+
+### 10000
+### 100000
+### 1000000
+
+# Atlas Environment Load at Test time
+There was another user on during my testing, but they were consistently idle.
+
+[n00599835@cisatlas oop]$ top
+top - 11:55:55 up 431 days,  2:32,  1 user,  load average: 0.00, 0.00, 0.00
+Tasks: 1400 total,   4 running, 1392 sleeping,   4 stopped,   0 zombie
+Cpu(s):  0.6%us,  3.3%sy,  0.0%ni, 96.1%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:  132281152k total,  8094148k used, 124187004k free,   335656k buffers
+Swap:  4194300k total,        0k used,  4194300k free,  3323276k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+36221 n0087198  20   0  134m 2972 2140 S  5.2  0.0   1212:53 master
+36259 n0087198  20   0  134m 2976 2140 S  5.2  0.0   1213:48 master
+36333 n0087198  20   0  134m 2976 2140 S  5.2  0.0   1215:21 master
+
+# Uranus Environment Load at Test time

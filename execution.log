@@ -208,3 +208,31 @@ Report for: Non-Shared Memory, Distributed Parallel Square Matrix
 2018/11/18 13:23:20 	Complexity         : O(n^2)
 2018/11/18 13:23:20 	Duration of Run    : 2m35.598553768s
 2018/11/18 13:23:20 	Size of test set   : 500
+2018/11/18 13:52:37 
+
+Report for: Sequential Square Matrix
+2018/11/18 13:52:37 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 13:52:37 	Complexity         : O(n^2)
+2018/11/18 13:52:37 	Duration of Run    : 2.493186ms
+2018/11/18 13:52:37 	Size of test set   : 500
+2018/11/18 13:52:37 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 13:52:37 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 13:52:37 	Complexity         : O(n^2)
+2018/11/18 13:52:37 	Duration of Run    : 4.355725ms
+2018/11/18 13:52:37 	Size of test set   : 500
+2018/11/18 14:01:40 
+
+Report for: Linear MergeSort
+2018/11/18 14:01:40 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 14:01:40 	Complexity         : O(n*log(n))
+2018/11/18 14:01:40 	Duration of Run    : 343.784us
+2018/11/18 14:01:40 	Size of test set   : 1000
+2018/11/18 14:01:40 
+
+Report for: Shared Memory, Threaded Parallel MergeSort
+2018/11/18 14:01:40 	Hostname           : cisatlas.ccec.unf.edu
+2018/11/18 14:01:40 	Complexity         : O(n*log(n))
+2018/11/18 14:01:40 	Duration of Run    : 1.582844ms
+2018/11/18 14:01:40 	Size of test set   : 1000

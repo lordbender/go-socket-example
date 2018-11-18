@@ -1,0 +1,24 @@
+2018/11/18 10:54:13 
+
+Report for: Linear MergeSort
+2018/11/18 10:54:13 	Complexity		: O(n*log(n))
+2018/11/18 10:54:13 	Duration of Run	: 1.956ms
+2018/11/18 10:54:13 	Size of test set	: 10000
+2018/11/18 10:54:13 
+
+Report for: Shared Memory, Threaded Parallel MergeSort
+2018/11/18 10:54:13 	Complexity		: O(n*log(n))
+2018/11/18 10:54:13 	Duration of Run	: 2.9918ms
+2018/11/18 10:54:13 	Size of test set	: 10000
+2018/11/18 10:54:16 
+
+Report for: Sequential Square Matrix
+2018/11/18 10:54:16 	Complexity		: O(n^2)
+2018/11/18 10:54:16 	Duration of Run	: 365.0181ms
+2018/11/18 10:54:16 	Size of test set	: 10000
+2018/11/18 10:54:19 
+
+Report for: Shared Memory, Threaded Parallel Square Matrix
+2018/11/18 10:54:19 	Complexity		: O(n^2)
+2018/11/18 10:54:19 	Duration of Run	: 156.5839ms
+2018/11/18 10:54:19 	Size of test set	: 10000

@@ -2,6 +2,8 @@ package core
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"time"
 )
 
@@ -14,23 +16,26 @@ type ReportModel struct {
 	Size          int
 }
 
-// func CreateReportModel(executionTime time.Duration, algorithm, complexity string, size int) ReportModel {
-// 	var m ReportModel = ReportModel{
-// 		executionTime,
-// 		algorithm,
-// 		complexity,
-// 		size,
-// 	}
-// 	m.ExecutionTime = executionTime
-
-// 	return m
-// }
-
 // RunReport will create the formatted output for
 // a given experiment.
 func RunReport(model ReportModel) {
-	fmt.Printf("Report for: %s\n", model.Algorithm)
+	fmt.Printf("\n\nReport for: %s\n", model.Algorithm)
 	fmt.Printf("\tComplexity		: %s\n", model.Complexity)
 	fmt.Printf("\tDuration of Run	: %s\n", model.ExecutionTime.String())
 	fmt.Printf("\tSize of test set	: %d\n", model.Size)
+
+	// Save the results to a file for later evaluation
+	f, errF := os.OpenFile("./execution.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if errF != nil {
+		log.Fatalf("Error opening file: %v", errF)
+		return
+	}
+	defer f.Close()
+
+	log.SetOutput(f)
+	log.Printf("\n\nReport for: %s\n", model.Algorithm)
+	log.Printf("\tComplexity		: %s\n", model.Complexity)
+	log.Printf("\tDuration of Run	: %s\n", model.ExecutionTime.String())
+	log.Printf("\tSize of test set	: %d\n", model.Size)
+
 }

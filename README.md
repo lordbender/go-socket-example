@@ -6,11 +6,12 @@
 # Build
     In order to build this code, you MUST put it in the correct location. GOLANG requires that 
     code be placed in one of two specific locations in order to leverage the sub packages features,
-    which I have used heavily.
+    which I have used heavily. On Uranus at least, for me, GOPATH was not set at all. I had to edit my .bash_profile
+    to export it before I could run my code.
 
 ## Steps to build
 
-0. YOU MUST put folder oop at GOROOT
+0. YOU MUST put folder oop at where the environment var GOPATH is pointing to
     1. set | grep GOPATH
         1. [n00599835@cisatlas oop]$ set | grep GOPATH
             1. GOPATH=/home/n00599835/go/src
@@ -58,8 +59,6 @@
 
 ## Distributed Memory Flag Permutations
 
-
-
 # Running Distributed Memory
 #NOTE: Server must be started seperatly to run these commands see Below Section on Running Distributed Memory Server#
 
@@ -95,3 +94,21 @@
 curl http://localhost:8080/api/v1/running
 curl http://compute-0-0:8080/api/v1/running
 curl http://compute-0-[0-12]:8080/api/v1/running
+
+# Project Definition
+    Project 3 Parallel Computing --- Due 11/20/18 
+
+    For this project you are to implement comparison of performance of
+    parallel applications.
+
+    Using your chosen language, implement O(nlgn), O(n^2)
+    algorithms.  On atlas projects should use threading and 
+    uranus utilizing socket communication or a communication provided
+    by the language. 
+
+    GO - Sean Willison            -------------- 11/20/18
+
+    Documentation and source code should be submitted 
+    by the end of class on 12/1.
+
+    turnin to reepar3

@@ -262,3 +262,22 @@ Swap:  1023996k total,   106536k used,   917460k free,  4428400k cached
     1 root      20   0 19356  556  328 S  0.0  0.0   0:00.96 init
     2 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kthreadd
     3 root      RT   0     0    0    0 S  0.0  0.0   0:02.64 migration/0
+
+# Conclusions
+
+## About GOLANG
+    Golang goes its own direction, choosing not to leverage the paradigms 
+    that most modern languages share. Java, JavaScript, C# and many others 
+    follow many common grammar strictures, making it easy for developers to
+    go between them. Golang. chose not follow many of those strictures, and that
+    makes getting used to it a little harder, but still achievable. In the end,
+    while interesting, I'll stick with Java and Javascript for my projects, as
+    they support SOLID, Functional, Aspect and Object oriented programming more 
+    fluidly and have all of the same features.
+
+## About Concurrency in GOLANG
+    Concurrent is where GOLANG really shines! With first class coroutine support,
+    and a simple means of managing the deferment and parallelization of those routines 
+    by using channels and buffers, golang makes managing shared memory distributed 
+    programming as simple as it can be. From a grammar perspective, this is probably it's
+    strongest feature.

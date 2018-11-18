@@ -19,10 +19,13 @@ type ReportModel struct {
 // RunReport will create the formatted output for
 // a given experiment.
 func RunReport(model ReportModel) {
+	hostname, _ := os.Hostname()
+
 	fmt.Printf("\n\nReport for: %s\n", model.Algorithm)
-	fmt.Printf("\tComplexity		: %s\n", model.Complexity)
-	fmt.Printf("\tDuration of Run	: %s\n", model.ExecutionTime.String())
-	fmt.Printf("\tSize of test set	: %d\n", model.Size)
+	fmt.Printf("\tHostname          : %s\n", hostname)
+	fmt.Printf("\tComplexity        : %s\n", model.Complexity)
+	fmt.Printf("\tDuration of Run   : %s\n", model.ExecutionTime.String())
+	fmt.Printf("\tSize of test set  : %d\n", model.Size)
 
 	// Save the results to a file for later evaluation
 	f, errF := os.OpenFile("./execution.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
@@ -34,8 +37,9 @@ func RunReport(model ReportModel) {
 
 	log.SetOutput(f)
 	log.Printf("\n\nReport for: %s\n", model.Algorithm)
-	log.Printf("\tComplexity		: %s\n", model.Complexity)
-	log.Printf("\tDuration of Run	: %s\n", model.ExecutionTime.String())
-	log.Printf("\tSize of test set	: %d\n", model.Size)
+	log.Printf("\tHostname           : %s\n", hostname)
+	log.Printf("\tComplexity         : %s\n", model.Complexity)
+	log.Printf("\tDuration of Run    : %s\n", model.ExecutionTime.String())
+	log.Printf("\tSize of test set   : %d\n", model.Size)
 
 }

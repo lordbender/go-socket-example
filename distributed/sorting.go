@@ -1,32 +1,63 @@
 package distributed
 
 import (
+	"bytes"
+	"encoding/json"
+	"io/ioutil"
+	"log"
+	"net/http"
 	"sync"
 )
 
-// Merge merges left and right slice into newly created slice
-func Merge(model MergeRequestModel) MergeResponseModel {
-	left := model.Left
-	right := model.Right
-	size, i, j := len(left)+len(right), 0, 0
-	slice := make([]int, size, size)
+var i int = 0
 
-	for k := 0; k < size; k++ {
-		if i > len(left)-1 && j <= len(right)-1 {
-			slice[k] = right[j]
-			j++
-		} else if j > len(right)-1 && i <= len(left)-1 {
-			slice[k] = left[i]
-			i++
-		} else if left[i] < right[j] {
-			slice[k] = left[i]
-			i++
+func merge(mergeModel MergeRequestModel, hostsfile bool) MergeResponseModel {
+
+	var response MergeResponseModel
+	results := make(chan int, 1)
+	errors := make(chan error, 1)
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	go func() {
+		defer wg.Done()
+		url := ""
+		if !hostsfile {
+			url = "http://" + root + ":8080/api/v1/merge"
 		} else {
-			slice[k] = right[j]
-			j++
+			url = "http://" + getNextHost(i) + ":8080/api/v1/merge"
 		}
+		i++
+		jsonValue, _ := json.Marshal(mergeModel)
+		response, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
+
+		if err != nil {
+			log.Printf("The HTTP request failed with error %s\n", err)
+			panic(err)
+		} else {
+			data, _ := ioutil.ReadAll(response.Body)
+			// Marshal the results into an object
+
+			if errR := json.Unmarshal(data, &response); err != nil {
+				log.Printf("The HTTP request failed with error %s\n", errR)
+				panic(errR)
+			}
+		}
+	}()
+	// here we wait in other goroutine to all jobs done and close the channels
+	go func() {
+		wg.Wait()
+		close(results)
+		close(errors)
+	}()
+	for err := range errors {
+		// here error happend u could exit your caller function
+		println(err.Error())
 	}
-	response := MergeResponseModel{slice}
+	for res := range results {
+		println("--------- ", res, " ------------")
+	}
 	return response
 }
 
@@ -70,12 +101,12 @@ func MergeSortDistributed(list []int, threshold int, hostsfile bool) []int {
 
 	// Distribute here
 	request := MergeRequestModel{left, right}
-	response := Merge(request)
+	response := merge(request, hostsfile)
 
 	return response.Merged
 }
 
-// func merge(respond chan<- mergeModel, a mergeModel, url string) {
+// func mergeIt(respond chan<- mergeModel, a mergeModel, url string) {
 // 	size := len(a.row)
 // 	c := make([]int, size)
 

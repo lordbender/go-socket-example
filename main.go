@@ -2,18 +2,12 @@ package main
 
 import (
 	"flag"
-	"log"
 	"oop/core"
 	"oop/distributed"
 	"oop/services"
 	"time"
 )
 
-func report(algorithm, elapsed string, size int) {
-	log.Printf("%s Sort took %s\n\tSize: %d\n\n", algorithm, elapsed, size)
-}
-
-// Citation: https://systembash.com/a-simple-go-tcp-server-and-tcp-client/
 func main() {
 	size := flag.Int("size", 1000, "Size of the test set.")
 	all := flag.Bool("all", false, "If true, all reports will run")
@@ -29,7 +23,13 @@ func main() {
 		start := time.Now()
 		services.MergeSort(a)
 		elapsed := time.Since(start)
-		report("Sequential Merge Sort", elapsed.String(), *size)
+		m := core.ReportModel{
+			elapsed,
+			"Linear MergeSort",
+			"O(n*log(n))",
+			*size,
+		}
+		core.RunReport(m)
 	}
 
 	if (*all || *mergeSortReports) && !*rocks {
@@ -37,7 +37,13 @@ func main() {
 		parallelMergeSortStart := time.Now()
 		services.MergeSortParallel(b, 50)
 		parallelMergeSortElapsed := time.Since(parallelMergeSortStart)
-		report("Parallel Merge Sort", parallelMergeSortElapsed.String(), *size)
+		m := core.ReportModel{
+			parallelMergeSortElapsed,
+			"Shared Memory, Threaded Parallel MergeSort",
+			"O(n*log(n))",
+			*size,
+		}
+		core.RunReport(m)
 	}
 
 	if (*all || *squaredReports) && !*rocks {
@@ -45,7 +51,13 @@ func main() {
 		squareMatrixStart := time.Now()
 		services.SquareMatrix(c)
 		squareMatrixEnd := time.Since(squareMatrixStart)
-		report("Sequential Square Matrix", squareMatrixEnd.String(), *size)
+		m := core.ReportModel{
+			squareMatrixEnd,
+			"Sequential Square Matrix",
+			"O(n^2)",
+			*size,
+		}
+		core.RunReport(m)
 	}
 
 	if (*all || *squaredReports) && !*rocks {
@@ -53,7 +65,26 @@ func main() {
 		squareMatrixParStart := time.Now()
 		services.SquareMatrixParallel(d)
 		squareMatrixParEnd := time.Since(squareMatrixParStart)
-		report("Parallel Square Matrix", squareMatrixParEnd.String(), *size)
+		m := core.ReportModel{
+			squareMatrixParEnd,
+			"Shared Memory, Threaded Parallel Square Matrix",
+			"O(n^2)",
+			*size,
+		}
+		core.RunReport(m)
+	}
+
+	if (*all || *mergeSortReports) && *rocks {
+		rocksMergeSortStart := time.Now()
+		// distributed.MergeSort(*hostsfile)
+		rocksMergeSortElapsed := time.Since(rocksMergeSortStart)
+		m := core.ReportModel{
+			rocksMergeSortElapsed,
+			"Non-Shared Memory, Distributed Parallel Merge Sort",
+			"O(n*log(n))",
+			*size,
+		}
+		core.RunReport(m)
 	}
 
 	if (*all || *squaredReports) && *rocks {
@@ -61,13 +92,12 @@ func main() {
 		rocksMatrixSquareStart := time.Now()
 		distributed.SquareMatrix(m1, *hostsfile)
 		rocksMatrixSquareElapsed := time.Since(rocksMatrixSquareStart)
-		report("Distributed Matrix Square", rocksMatrixSquareElapsed.String(), *size)
-	}
-
-	if (*all || *mergeSortReports) && *rocks {
-		rocksMergeSortStart := time.Now()
-		// distributed.MergeSort(*hostsfile)
-		rocksMergeSortElapsed := time.Since(rocksMergeSortStart)
-		report("Distributed Merge Sort", rocksMergeSortElapsed.String(), *size)
+		m := core.ReportModel{
+			rocksMatrixSquareElapsed,
+			"Non-Shared Memory, Distributed Parallel Square Matrix",
+			"O(n^2)",
+			*size,
+		}
+		core.RunReport(m)
 	}
 }

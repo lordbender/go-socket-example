@@ -3,6 +3,7 @@ package main
 /* Al useful imports */
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"oop/distributed"
@@ -37,7 +38,12 @@ func squareVector(rw http.ResponseWriter, req *http.Request) {
 	rw.Write(resString)
 }
 
+func testUp(rw http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(rw, "Server Running")
+}
+
 func main() {
+	http.HandleFunc("/api/v1/running", testUp)
 	http.HandleFunc("/api/v1/vector-square", squareVector)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
